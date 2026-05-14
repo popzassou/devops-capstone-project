@@ -82,7 +82,7 @@ class TestAccountService(TestCase):
         """It should get 200_OK from the Home Page"""
         response = self.client.get("/")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-    
+
     def test_security_headers(self):
         """It should return security headers"""
         response = self.client.get('/', environ_overrides=HTTPS_ENVIRON)
@@ -102,7 +102,6 @@ class TestAccountService(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         # Check for the CORS header
         self.assertEqual(response.headers.get('Access-Control-Allow-Origin'), '*')
-
 
     def test_health(self):
         """It should be healthy"""
@@ -173,7 +172,7 @@ class TestAccountService(TestCase):
         new_account = resp.get_json()
         new_account["name"] = "Something Known"
         resp = self.client.put(
-            f"{BASE_URL}/{new_account['id']}", 
+            f"{BASE_URL}/{new_account['id']}",
             json=new_account
         )
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
@@ -203,3 +202,4 @@ class TestAccountService(TestCase):
         """It should not allow an illegal method call"""
         resp = self.client.delete(BASE_URL)
         self.assertEqual(resp.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
+        
